@@ -1,41 +1,100 @@
 import './App.css';
-import {useDispatch, useSelector} from 'react-redux';
-import {useState} from "react";
+import {useSelector} from "react-redux";
+import {useEffect} from "react";
+import {
+    usePostsFetcher,
+    usePostsSetLoading,
+    usePostsSetError
+} from './redux';
+import {useCommentsFetcher, useCommentsSetError, useCommentsSetLoading} from "./redux/comments.hooks";
 
-const Counter = () => {
-    const counter = useSelector((state) => state.counter)
-    const dispatch = useDispatch();
-    const [value, setValue] = useState(10);
+const Posts = () => {
+    const {isLoading, posts, error} = useSelector(({posts}) => posts);
+    const postFetcher = usePostsFetcher();
+    const postLoading = usePostsSetLoading();
+    const postError = usePostsSetError();
+
+    const fetchPosts = async () => {
+        try {
+            postLoading()
+            const response = await fetch('https://jsonplaceholder.typicode.com/posts')
+            const payload = await response.json();
+            postFetcher(payload);
+        } catch (e) {
+            postError('Failed to fetch data');
+        }
+    };
+
+    useEffect(() => {
+        fetchPosts();
+    }, []);
+    if (error) {
+        return (
+            <h1>{error}</h1>
+        )
+    }
+    if (isLoading) {
+        return (
+            <h1>Loading...</h1>
+        )
+    }
     return (
-        <>
-            <h1>Counter: {counter}</h1>
-            <input type={"number"} value={value} onChange={({target: { value }}) => {
-                setValue(value)
-            }}/>
-            <button onClick={() => {
-                dispatch({type: 'INC_CUSTOM', payload: Number(value)})
-            }}>Increment_Custom
-            </button>
-            <button onClick={() => {
-                dispatch({type: 'INC'})
-            }}>Increment
-            </button>
-            <button onClick={() => {
-                dispatch({type: 'DEC'})
-            }}>Decrement
-            </button>
-            <button onClick={() => {
-                dispatch({type: 'RESET'})
-            }}>Reset
-            </button>
-        </>
-    )
-}
+        <div>
+            {
+                posts.map(post => (
+                    <p key={post.id}>{post.title} - {post.body}</p>
+                ))
+            }
+        </div>
+    );
+};
+
+const Comments = () => {
+    const {isLoading, comments, error} = useSelector(({comments}) => comments);
+    const commentFetcher = useCommentsFetcher();
+    const commentLoading = useCommentsSetLoading();
+    const commentError = useCommentsSetError();
+
+    const fetchComments = async () => {
+        try {
+            commentLoading()
+            const response = await fetch('https://jsonplaceholder.typicode.com/comments')
+            const payload = await response.json();
+            commentFetcher(payload);
+        } catch (e) {
+            commentError('Failed to fetch data');
+        }
+    };
+
+    useEffect(() => {
+        fetchComments();
+    }, []);
+    if (error) {
+        return (
+            <h1>{error}</h1>
+        )
+    }
+    if (isLoading) {
+        return (
+            <h1>Loading...</h1>
+        )
+    }
+    return (
+        <div>
+            {
+                comments.map(comment => (
+                    <p key={comment.id}>{comment.name} - {comment.email}</p>
+                ))
+            }
+        </div>
+    );
+};
 
 function App() {
     return (
         <div className="App">
-            <Counter/>
+            {/*<Posts/>*/}
+            <Comments/>
         </div>
     );
 }
