@@ -12,6 +12,12 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case "INC_CUSTOM": {
+            return {
+                ...state,
+                counter: state.counter + action.payload
+            }
+        }
         case "INC": {
             return {
                 ...state,
