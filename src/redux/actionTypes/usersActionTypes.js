@@ -1,0 +1,3 @@
+export const SET_USERS = 'SET_USERS';
+export const SET_USERS_IS_LOADING = 'SET_USERS_IS_LOADING';
+export const SET_USERS_ERROR = 'SET_USERS_ERROR';

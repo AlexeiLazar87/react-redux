@@ -1,42 +1,29 @@
 import './App.css';
-import {useDispatch, useSelector} from 'react-redux';
-import {useState} from "react";
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    NavLink
+} from "react-router-dom";
+import {Users, Posts, Comments} from './components'
 
-const Counter = () => {
-    const counter = useSelector((state) => state.counter)
-    const dispatch = useDispatch();
-    const [value, setValue] = useState(10);
-    return (
-        <>
-            <h1>Counter: {counter}</h1>
-            <input type={"number"} value={value} onChange={({target: { value }}) => {
-                setValue(value)
-            }}/>
-            <button onClick={() => {
-                dispatch({type: 'INC_CUSTOM', payload: Number(value)})
-            }}>Increment_Custom
-            </button>
-            <button onClick={() => {
-                dispatch({type: 'INC'})
-            }}>Increment
-            </button>
-            <button onClick={() => {
-                dispatch({type: 'DEC'})
-            }}>Decrement
-            </button>
-            <button onClick={() => {
-                dispatch({type: 'RESET'})
-            }}>Reset
-            </button>
-        </>
-    )
-}
 
 function App() {
     return (
-        <div className="App">
-            <Counter/>
-        </div>
+        <Router>
+            <div className="App">
+                <div className={'wrap'}>
+                    <button><NavLink to={'/users'}>Users</NavLink></button>
+                    <button><NavLink to={'/posts'}>Posts</NavLink></button>
+                    <button><NavLink to={'/comments'}>Comments</NavLink></button>
+                </div>
+                <Routes>
+                    <Route path={'/users'} element={<Users/>}/>
+                    <Route path={'/posts'} element={<Posts/>}/>
+                    <Route path={'/comments'} element={<Comments/>}/>
+                </Routes>
+            </div>
+        </Router>
     );
 }
 
