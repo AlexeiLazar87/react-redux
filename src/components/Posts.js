@@ -2,7 +2,7 @@ import {useSelector} from "react-redux";
 import {useEffect} from "react";
 import {usePostsFetcher, usePostsSetError, usePostsSetLoading} from "../redux/customHooks";
 
-const PostsList = () => {
+export const Posts = () => {
     const {posts, isLoading, error} = useSelector(({posts}) => {
         return posts
     });
@@ -46,13 +46,4 @@ const PostsList = () => {
         </div>
     )
 
-}
-
-
-export function Posts() {
-    return (
-        <div>
-            <PostsList/>
-        </div>
-    )
 };

@@ -2,7 +2,7 @@ import {useSelector} from "react-redux";
 import {useEffect} from "react";
 import {useCommentsFetcher, useCommentsSetError, useCommentsSetLoading} from "../redux/customHooks";
 
-const CommentsList = () => {
+export const Comments = () => {
     const {comments, isLoading, error} = useSelector(({comments}) => {
         return comments
     });
@@ -47,12 +47,4 @@ const CommentsList = () => {
             }
         </div>
     )
-}
-
-export function Comments() {
-    return (
-        <div>
-            <CommentsList/>
-        </div>
-    )
-}
+};

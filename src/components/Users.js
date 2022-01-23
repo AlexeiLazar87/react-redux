@@ -2,7 +2,7 @@ import {useSelector} from "react-redux";
 import {useEffect} from "react";
 import {useUsersFetcher, useUsersSetError, useUsersSetLoading} from "../redux/customHooks";
 
-const UsersList = () => {
+export const Users = () => {
     const {users, isLoading, error} = useSelector(({users}) => {
         return users
     });
@@ -50,11 +50,3 @@ const UsersList = () => {
         </div>
     )
 }
-
-export function Users() {
-    return (
-        <div>
-            <UsersList/>
-        </div>
-    )
-};
