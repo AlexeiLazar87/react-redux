@@ -1,5 +1,5 @@
 import {useDispatch} from "react-redux";
-import {setPosts, setPostsError, setPostsIsLoading} from "../actionCreators/postsActionCreators";
+import {setPosts, setPostsError, setPostsIsLoading} from "../actionCreators";
 
 export const usePostsFetcher = () => {
     const dispatch = useDispatch();

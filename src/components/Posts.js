@@ -1,6 +1,6 @@
 import {useSelector} from "react-redux";
 import {useEffect} from "react";
-import {usePostsFetcher, usePostsSetError, usePostsSetLoading} from "../redux/customHooks/postsCustomHooks";
+import {usePostsFetcher, usePostsSetError, usePostsSetLoading} from "../redux/customHooks";
 
 const PostsList = () => {
     const {posts, isLoading, error} = useSelector(({posts}) => {
