@@ -18,6 +18,7 @@ function App() {
                     <button><NavLink to={'/comments'}>Comments</NavLink></button>
                 </div>
                 <Routes>
+                    <Route path={'/'} element={<h1>Home page</h1>}/>
                     <Route path={'/users'} element={<Users/>}/>
                     <Route path={'/posts'} element={<Posts/>}/>
                     <Route path={'/comments'} element={<Comments/>}/>

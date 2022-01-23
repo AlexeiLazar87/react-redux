@@ -1,26 +1,27 @@
 
 const initialState = {
-    users: [],
+    posts: [],
     isLoading: false,
     error: null
-}
+};
 
-export const usersReducer = (state = initialState, action) => {
+export const postsReducer = (state = initialState,action) => {
     switch (action.type) {
-        case 'SET_USERS': {
+        case 'SET_POSTS': {
             return {
                 ...state,
-                users: action.payload,
-                isLoading: false
+                posts: action.payload,
+                isLoading: false,
+
             }
         }
-        case 'SET_USERS_IS_LOADING': {
+        case 'SET_POSTS_IS_LOADING': {
             return {
                 ...state,
                 isLoading: true
             }
         }
-        case 'SET_USERS_ERROR': {
+        case 'SET_POSTS_ERROR': {
             return {
                 ...state,
                 error: action.payload,

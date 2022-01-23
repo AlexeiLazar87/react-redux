@@ -3,11 +3,9 @@ import {useEffect} from "react";
 import {useUsersFetcher, useUsersSetError, useUsersSetLoading} from "../redux/customHooks";
 
 const UsersList = () => {
-    const {users, isLoading, error} = useSelector(({users, isLoading, error}) => ({
-        users,
-        isLoading,
-        error
-    }));
+    const {users, isLoading, error} = useSelector(({users}) => {
+        return users
+    });
     const usersFetcher = useUsersFetcher();
     const usersSetLoading = useUsersSetLoading();
     const usersSetError = useUsersSetError();
@@ -18,7 +16,7 @@ const UsersList = () => {
             const payload = await response.json();
             setTimeout(() => {
                 usersFetcher(payload);
-            }, 2000)
+            }, 1000)
 
         } catch (e) {
             usersSetError('Failed')

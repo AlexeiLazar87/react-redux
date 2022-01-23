@@ -1,0 +1,3 @@
+export const SET_POSTS = 'SET_POSTS';
+export const SET_POSTS_IS_LOADING = 'SET_POSTS_IS_LOADING';
+export const SET_POSTS_ERROR = 'SET_POSTS_ERROR';
