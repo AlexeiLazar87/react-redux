@@ -1,41 +1,66 @@
 import './App.css';
-import {useDispatch, useSelector} from 'react-redux';
-import {useState} from "react";
+import {useEffect} from "react";
+import {fetchProducts} from "./redux";
+import {useDispatch, useSelector} from "react-redux";
 
-const Counter = () => {
-    const counter = useSelector((state) => state.counter)
-    const dispatch = useDispatch();
-    const [value, setValue] = useState(10);
+const Header = () => {
+
     return (
         <>
-            <h1>Counter: {counter}</h1>
-            <input type={"number"} value={value} onChange={({target: { value }}) => {
-                setValue(value)
-            }}/>
-            <button onClick={() => {
-                dispatch({type: 'INC_CUSTOM', payload: Number(value)})
-            }}>Increment_Custom
-            </button>
-            <button onClick={() => {
-                dispatch({type: 'INC'})
-            }}>Increment
-            </button>
-            <button onClick={() => {
-                dispatch({type: 'DEC'})
-            }}>Decrement
-            </button>
-            <button onClick={() => {
-                dispatch({type: 'RESET'})
-            }}>Reset
-            </button>
+            <header className={'header'}>
+                <h1>My shop</h1>
+                <div style={{
+                    display: 'flex',
+                    alignItems: 'center'
+                }}>
+                    <h3 style={{margin: '20px'}}>Cart: {0}</h3>
+                    <h3 style={{margin: '20px'}}>Wishlist: {0}</h3>
+                </div>
+            </header>
+            <hr/>
         </>
     )
 }
 
+const Products = () => {
+    const {products, isProductsLoading} = useSelector(({products}) => products);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchProducts({
+            field: 'price',
+            order: 'ASC'
+        }));
+    }, [])
+
+    if (isProductsLoading) {
+        return <h2>Loading...</h2>
+    }
+
+
+    return (
+        <div>
+            {
+                products.map(product => (
+                    <div key={product.id} style={{
+                        width: '70%',
+                        margin: '20px auto'
+                    }}>
+                        <h4>{product.title}</h4>
+                        <p>{product.description}</p>
+                        <img style={{width: '100%'}} src={product.image} alt={'shop'}/>
+                    </div>
+                ))
+            }
+        </div>
+    )
+};
+
 function App() {
     return (
         <div className="App">
-            <Counter/>
+            <Header/>
+            <Products/>
         </div>
     );
 }
